@@ -5,10 +5,11 @@ class DLLNC:
         self.tail=None
         self.size=0
 
+    def __len__(self):
+        return self._size
+
     def isEmpty(self):
-        self.size=0
-    def __len__(self,ukuran):
-        return ukuran
+        return self.size == 0
     
     def  addElementTail(self,_element,_ipk):
         baru=NodeMahasiswa(_element,_ipk)
@@ -23,17 +24,24 @@ class DLLNC:
         self.size=self.size + 1
 
     def deleteLast(self):
-        if self.size==1:
-            self.head=None
-            self.tail= None
+        if self.isEmpty() == False:
+            d = None
+            bantu = self.head
+            if(self.head != self.tail):
+                while bantu._next != self.tail:
+                    bantu = bantu._next
+                hapus = self.tail
+                self._tail = bantu
+                d = hapus._element
+                del hapus
+                self._tail._next = None
+            else:
+                d = self._tail._element
+                self.head=tail=None
+            self.size -= 1
+            print(d, " terhapus!")
         else:
-            hapus=self.head
-            self.head=self.head._next
-            hapus._next=None
-            self.head._prev=None
-            del hapus
-        print("Data Terhapus")
-        self.size=self.size-1
+         print("Kosong!")
 
     def printDescending(self):
         print("=====PRINT DESCENDING=====")
@@ -44,10 +52,8 @@ class DLLNC:
             print("IPK: ",bantu._ipk)
             bantu=bantu._next
 
-    # def rataIpk(self,ipk):
-    #     print("===Rata-Rata IPK===: ",len*ipk/)
-
-
+    def rataIpk(self):
+        print("Rata-rata tidak sempat, waktu kurang")
 
 
 #test case
@@ -60,7 +66,7 @@ DLLNC.printDescending()
 
 DLLNC.deleteLast()
 DLLNC.printDescending()
-# DLLNC.rataIpk()
+DLLNC.rataIpk()
 
 
 
